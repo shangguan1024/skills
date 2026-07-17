@@ -1,8 +1,0 @@
-{
-  "featureName": "Logger Level Filter",
-  "currentPhase": 6,
-  "gateApprovals": { "0": true, "1": true, "2": true, "3": true, "4": true, "5": true, "6": true },
-  "editCount": 18,
-  "taskCount": 6,
-  "qualityProfile": "standard"
-}
