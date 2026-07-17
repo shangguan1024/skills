@@ -53,7 +53,9 @@ tbody td.done{background:rgba(14,94,82,.055);}
 tbody td.current{background:rgba(14,94,82,.02);}
 tbody td.future{background:var(--paper); color:var(--muted);}
 tbody td .none{color:var(--muted);}
-tbody td .code{font-family:var(--mono); font-size:12.5px;}
+tbody td .code{font-family:var(--mono); font-size:12.5px; font-weight:600; color:var(--ink); overflow-wrap:anywhere; white-space:pre-line;}
+tbody td .add{display:block; margin-top:5px; font-family:var(--body); font-size:11px; color:var(--muted); line-height:1.4; overflow-wrap:anywhere; white-space:pre-line;}
+tbody td .add:empty{display:none;}
 /* summary bar */
 .summary{display:flex; align-items:center; gap:24px; background:var(--card); border-left:5px solid var(--accent); border-radius:6px; padding:20px 28px; min-height:116px;}
 .summary .s-label{font-family:var(--display); font-weight:700; font-size:20px; color:var(--accent); white-space:nowrap;}
@@ -102,13 +104,13 @@ tbody td .code{font-family:var(--mono); font-size:12.5px;}
       <tbody>
         <tr>
           <th class="rowlabel">skill<span class="hint">主技能 + 附加技能</span></th>
-          <td class="{{P0_STATE}}"><span class="code">{{P0_SKILL}}</span></td>
-          <td class="{{P1_STATE}}"><span class="code">{{P1_SKILL}}</span></td>
-          <td class="{{P2_STATE}}"><span class="code">{{P2_SKILL}}</span></td>
-          <td class="{{P3_STATE}}"><span class="code">{{P3_SKILL}}</span></td>
-          <td class="{{P4_STATE}}"><span class="code">{{P4_SKILL}}</span></td>
-          <td class="{{P5_STATE}}"><span class="code">{{P5_SKILL}}</span></td>
-          <td class="{{P6_STATE}}"><span class="code">{{P6_SKILL}}</span></td>
+          <td class="{{P0_STATE}}"><span class="code">{{P0_SKILL}}</span><span class="add">{{P0_ADD}}</span></td>
+          <td class="{{P1_STATE}}"><span class="code">{{P1_SKILL}}</span><span class="add">{{P1_ADD}}</span></td>
+          <td class="{{P2_STATE}}"><span class="code">{{P2_SKILL}}</span><span class="add">{{P2_ADD}}</span></td>
+          <td class="{{P3_STATE}}"><span class="code">{{P3_SKILL}}</span><span class="add">{{P3_ADD}}</span></td>
+          <td class="{{P4_STATE}}"><span class="code">{{P4_SKILL}}</span><span class="add">{{P4_ADD}}</span></td>
+          <td class="{{P5_STATE}}"><span class="code">{{P5_SKILL}}</span><span class="add">{{P5_ADD}}</span></td>
+          <td class="{{P6_STATE}}"><span class="code">{{P6_SKILL}}</span><span class="add">{{P6_ADD}}</span></td>
         </tr>
         <tr>
           <th class="rowlabel">输出产物<span class="hint">本相位交付件</span></th>

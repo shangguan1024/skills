@@ -41,7 +41,8 @@ Produce HTML summaries of SDD-Workflow runs in the "Quiet ledger" aesthetic. Two
    Read `ai_loc`, `human_loc`. `{{EFFICIENCY}}` = `round(ai_loc / (ai_loc + human_loc) * 100)`. If `total == 0` → `{{EFFICIENCY}}`, `{{AI_LOC}}`, `{{HUMAN_LOC}}` all = `—`. Default agent marker is the literal trailer `Co-Authored-By: Agent`; if the project's convention differs (e.g. `Claude`), pass `--agent-regex`. Also persist these to `docs/features/<feature>/stats.json` (UTF-8, no BOM) so the aggregate index can show them per-row: `{feature, start_sha, ai_loc, human_loc, total, efficiency, date, generated_at}`.
 4. Open `reference/placeholder-map.md` and fill every token from its source. Per phase (n = 0..6):
    - `{{Pn_STATE}}` = `done` if n < currentPhase; `current` if n == currentPhase; `future` if n > currentPhase. If all of `gateApprovals[0..6]` are approved → all `done`.
-   - `{{Pn_SKILL}}` = `workflow_config` phases[n] `skills` + `additional_skills`, joined ` + `.
+   - `{{Pn_SKILL}}` = `workflow_config` phases[n] `skills` (primary), joined with a newline — **one skill per line** (usually one).
+   - `{{Pn_ADD}}` = phases[n] `additional_skills`, each prefixed `+ ` and joined with a newline (one per line, e.g. `+ rust-best-practices`); empty string `""` if none — the template's `.add` span auto-hides when empty, and primaries vs additionals are visually distinct (bold mono vs small muted).
    - `{{Pn_OUT}}` = that phase's artifact (findings.md / design.md / task_plan.md / module files / test results / review notes / persisted memory); multiple files joined ` · `; missing → `—`.
    - `{{Pn_HUMAN}}` / `{{Pn_ISSUE}}` = draft from memory + `gateApprovals[n]` (human involvement / issues·workarounds in that phase); none → `—`.
 5. Draft the subjective cells (`{{Pn_HUMAN}}`, `{{Pn_ISSUE}}`, `{{OUTCOME_DETAIL}}`) from memory/timestamps and propose them to the user; confirm before writing.

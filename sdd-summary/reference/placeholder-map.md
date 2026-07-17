@@ -12,16 +12,17 @@ The page is a **phase × dimension matrix** (7 phase columns P0–P6 × 4 dimens
 | 2 | `{{DATE}}` | Header | today (YYYY-MM-DD) | AI |
 | 3 | `{{REQ_SUMMARY}}` | 需求规格描述 | `docs/features/<feature>/findings.md` — one-line requirement summary | AI |
 | 4 | `{{P0_STATE}}` … `{{P6_STATE}}` | Phase column coloring (header + that column's 4 cells) | `done` / `current` / `future` — see state rule below | AI |
-| 5 | `{{P0_SKILL}}` … `{{P6_SKILL}}` | skill 行 | `.sdd/workflow_config.json` `phases[n].skills` + `additional_skills`, joined with ` + ` | AI |
-| 6 | `{{P0_OUT}}` … `{{P6_OUT}}` | 输出产物 行 | phase artifact (see per-phase artifact map below); multiple files joined with ` · ` | AI |
-| 7 | `{{P0_HUMAN}}` … `{{P6_HUMAN}}` | 人工 行 | memory timeline + `gateApprovals[n]`: human-involvement label (e.g. 需求澄清/设计评审/代码走查), else `—` | AI drafts, user confirms |
-| 8 | `{{P0_ISSUE}}` … `{{P6_ISSUE}}` | 问题 行 | memory nodes (issues / workarounds / `user_notes_summary`) in phase n, else `—` | AI drafts, user confirms |
-| 9 | `{{EFFICIENCY}}` | 总结栏 高亮% | AI code share = `round(AI_LOC / (AI_LOC + HUMAN_LOC) * 100)` (from `count_loc.py`) | AI (computed) |
-| 10 | `{{AI_LOC}}` | 总结栏 代码量 | `scripts/count_loc.py` → `ai_loc` | AI (script) |
-| 11 | `{{HUMAN_LOC}}` | 总结栏 代码量 | `scripts/count_loc.py` → `human_loc` | AI (script) |
-| 12 | `{{OUTCOME_DETAIL}}` | 总结栏 文字 | efficiency tips prose (drafted from memory/timestamps + the AI/human split) | AI drafts, user confirms |
+| 5 | `{{P0_SKILL}}` … `{{P6_SKILL}}` | skill 行 主技能 | `.sdd/workflow_config.json` `phases[n].skills`, joined with `\n` (one per line; usually one) | AI |
+| 6 | `{{P0_ADD}}` … `{{P6_ADD}}` | skill 行 附加技能 | `phases[n].additional_skills`, each prefixed `+ ` and joined with `\n` (one per line, e.g. `+ rust-best-practices`); empty string `""` if none (the `.add` span auto-hides when empty) | AI |
+| 7 | `{{P0_OUT}}` … `{{P6_OUT}}` | 输出产物 行 | phase artifact (see per-phase artifact map below); multiple files joined with ` · ` | AI |
+| 8 | `{{P0_HUMAN}}` … `{{P6_HUMAN}}` | 人工 行 | memory timeline + `gateApprovals[n]`: human-involvement label (e.g. 需求澄清/设计评审/代码走查), else `—` | AI drafts, user confirms |
+| 9 | `{{P0_ISSUE}}` … `{{P6_ISSUE}}` | 问题 行 | memory nodes (issues / workarounds / `user_notes_summary`) in phase n, else `—` | AI drafts, user confirms |
+| 10 | `{{EFFICIENCY}}` | 总结栏 高亮% | AI code share = `round(AI_LOC / (AI_LOC + HUMAN_LOC) * 100)` (from `count_loc.py`) | AI (computed) |
+| 11 | `{{AI_LOC}}` | 总结栏 代码量 | `scripts/count_loc.py` → `ai_loc` | AI (script) |
+| 12 | `{{HUMAN_LOC}}` | 总结栏 代码量 | `scripts/count_loc.py` → `human_loc` | AI (script) |
+| 13 | `{{OUTCOME_DETAIL}}` | 总结栏 文字 | efficiency tips prose (drafted from memory/timestamps + the AI/human split) | AI drafts, user confirms |
 
-**Token count:** 3 + 7 + 7 + 7 + 7 + 7 + 4 = 42.
+**Token count:** 3 (header/req) + 7 (state) + 7 (skill) + 7 (add) + 7 (out) + 7 (human) + 7 (issue) + 4 (summary) = 49.
 
 ---
 
