@@ -1,0 +1,11 @@
+{
+  "phases": [
+    { "id": 0, "skills": ["comprehensive-research-agent"], "additional_skills": [] },
+    { "id": 1, "skills": ["brainstorming"], "additional_skills": [] },
+    { "id": 2, "skills": ["writing-plans"], "additional_skills": [] },
+    { "id": 3, "skills": ["subagent-driven-development"], "additional_skills": ["rust-best-practices"] },
+    { "id": 4, "skills": ["verification-before-completion"], "additional_skills": [] },
+    { "id": 5, "skills": ["requesting-code-review"], "additional_skills": [] },
+    { "id": 6, "skills": ["elite-longterm-memory"], "additional_skills": [] }
+  ]
+}
