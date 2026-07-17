@@ -4,83 +4,159 @@
 <meta charset="utf-8">
 <title>SDD Workflow Summary</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&display=swap');
 :root{
   --paper:#F6F3EC; --ink:#1B1C1E; --accent:#0E5E52; --muted:#6B6256;
   --card:#EFE9DB; --rule:#D9D3C4;
-  --display:'Fraunces',serif; --body:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  --display:'Fraunces','Source Han Serif SC','思源宋体','Noto Serif SC','Microsoft YaHei UI','Microsoft YaHei',serif;
+  --body:'Inter','Source Han Sans SC','思源黑体','Noto Sans SC','Microsoft YaHei UI','Microsoft YaHei','PingFang SC',sans-serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
-html,body{background:#2b2b2b;}
-body{font-family:var(--body); color:var(--ink);}
+html,body{background:#2b2b2b; min-height:100vh;}
+body{font-family:var(--body); color:var(--ink); display:flex; align-items:center; justify-content:center; padding:20px;}
 .slide{
   width:1920px; height:1080px; background:var(--paper);
-  display:grid;
-  grid-template-rows:60px 90px 250px 300px 284px;
-  grid-template-columns:repeat(6,1fr);
-  gap:14px; padding:20px 28px;
-  overflow:hidden;
+  display:flex; flex-direction:column; gap:16px; padding:26px 34px;
+  box-shadow:0 30px 90px rgba(0,0,0,.5); overflow:hidden;
 }
 /* header */
-.header{grid-column:1/-1; grid-row:1; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--rule);}
-.header .title{font-family:var(--display); font-weight:700; font-size:26px; color:var(--accent);}
-.header .meta{font-family:var(--mono); font-size:13px; color:var(--muted);}
-/* timeline */
-.timeline{grid-column:1/-1; grid-row:2; display:grid; grid-template-columns:repeat(7,1fr); align-items:start;}
-.tl-node{display:flex; flex-direction:column; align-items:center; text-align:center; gap:3px; position:relative; padding-top:4px;}
-.tl-node::before{content:""; position:absolute; top:18px; left:-50%; width:100%; height:2px; background:var(--rule); z-index:0;}
-.tl-node:first-child::before{display:none;}
-.tl-dot{width:28px; height:28px; border-radius:50%; border:2px solid var(--accent); background:var(--paper); z-index:1; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:600; font-size:12px; color:var(--accent);}
-.tl-node.done .tl-dot{background:var(--accent); color:var(--paper);}
-.tl-skill{font-family:var(--mono); font-size:10px; color:var(--muted); line-height:1.15; max-width:92px;}
-.tl-out{font-family:var(--mono); font-size:9px; color:var(--ink); line-height:1.15; max-width:92px;}
-/* hero row */
-.block1{grid-column:1/4; grid-row:3;}
-.hero{grid-column:4/-1; grid-row:3; display:flex; align-items:center; gap:28px; padding:0 8px;}
-.hero .big{font-family:var(--display); font-weight:700; font-size:104px; color:var(--accent); line-height:.9;}
-.hero .pct{font-size:42px; vertical-align:super;}
-.hero-label{font-family:var(--mono); font-size:15px; color:var(--muted); margin-top:6px;}
-.hero-r{display:flex; flex-direction:column; gap:10px; border-left:1px solid var(--rule); padding-left:24px;}
-.hero-r .stat{font-family:var(--mono); font-size:14px; color:var(--ink);}
-.hero-r .stat span{color:var(--muted);}
-/* wide row */
-.block23{grid-column:1/-1; grid-row:4; display:grid; grid-template-columns:1fr 1.5fr; gap:14px;}
-/* 3-across */
-.block4{grid-column:1/3; grid-row:5;}
-.block5{grid-column:3/5; grid-row:5;}
-.block6{grid-column:5/-1; grid-row:5;}
-.card{background:var(--card); border-radius:8px; padding:16px 20px; overflow:hidden;}
-.card.bare{background:transparent; padding:0;}
-.card h3{font-family:var(--display); font-weight:600; font-size:19px; color:var(--accent); margin-bottom:10px; display:flex; align-items:baseline; gap:8px;}
-.card h3 .num{font-family:var(--mono); font-size:12px; color:var(--muted); font-weight:500;}
-.card .data{font-family:var(--mono); font-size:12px; color:var(--ink); line-height:1.5; white-space:pre-wrap;}
-.card .sub{font-family:var(--body); font-size:12.5px; color:var(--ink); line-height:1.55;}
+.header{display:flex; align-items:baseline; justify-content:space-between; border-bottom:1px solid var(--rule); padding-bottom:14px;}
+.header .title{font-family:var(--display); font-weight:700; font-size:30px; color:var(--accent); letter-spacing:.2px;}
+.header .meta{font-family:var(--mono); font-size:14px; color:var(--muted);}
+/* section title */
+.section-title{font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink); line-height:1.4;}
+.section-title .label{color:var(--accent); margin-right:10px;}
+.section-title .req{font-family:var(--body); font-weight:500; font-size:19px; color:var(--ink);}
+/* matrix */
+.matrix{flex:1; display:flex; flex-direction:column; border:1px solid var(--rule); background:var(--paper); border-radius:6px; overflow:hidden;}
+table{width:100%; height:100%; border-collapse:collapse; table-layout:fixed;}
+th,td{border:1px solid var(--rule); vertical-align:top;}
+col.col-label{width:220px;}
+/* corner */
+th.corner{background:var(--card); text-align:left; padding:14px 16px; font-family:var(--display); font-weight:600; color:var(--accent); font-size:16px; line-height:1.25;}
+th.corner .sub{display:block; font-family:var(--body); font-weight:500; color:var(--muted); font-size:12px; margin-top:3px;}
+/* phase headers */
+thead th.phase{height:60px; font-family:var(--mono); font-weight:600; font-size:15px; text-align:center; letter-spacing:.5px; background:var(--card); color:var(--muted); vertical-align:middle;}
+thead th.phase .pname{display:block; font-family:var(--body); font-weight:500; font-size:11.5px; color:var(--muted); margin-top:4px; letter-spacing:0;}
+thead th.phase.done{background:var(--accent); color:var(--paper); border-color:var(--accent);}
+thead th.phase.done .pname{color:rgba(246,243,236,.82);}
+thead th.phase.current{background:var(--paper); color:var(--accent); border:2px solid var(--accent);}
+thead th.phase.current .pname{color:var(--accent);}
+thead th.phase.future{background:var(--paper); color:var(--muted);}
+/* row labels */
+tbody th.rowlabel{background:var(--card); text-align:left; padding:14px 16px; font-family:var(--display); font-weight:600; color:var(--accent); font-size:17px; width:220px;}
+tbody th.rowlabel .hint{display:block; font-family:var(--body); font-weight:400; color:var(--muted); font-size:11.5px; margin-top:3px;}
+/* data cells */
+tbody td{padding:14px 14px; font-family:var(--body); font-size:13px; color:var(--ink); line-height:1.6; word-break:break-word;}
+tbody td.done{background:rgba(14,94,82,.055);}
+tbody td.current{background:rgba(14,94,82,.02);}
+tbody td.future{background:var(--paper); color:var(--muted);}
+tbody td .none{color:var(--muted);}
+tbody td .code{font-family:var(--mono); font-size:12.5px;}
+/* summary bar */
+.summary{display:flex; align-items:center; gap:24px; background:var(--card); border-left:5px solid var(--accent); border-radius:6px; padding:20px 28px; min-height:116px;}
+.summary .s-label{font-family:var(--display); font-weight:700; font-size:20px; color:var(--accent); white-space:nowrap;}
+.eff-chip{background:var(--accent); color:var(--paper); border-radius:8px; padding:10px 26px; display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:172px;}
+.eff-num{font-family:var(--display); font-weight:700; font-size:46px; line-height:1;}
+.eff-pct{font-size:24px; vertical-align:super; margin-left:1px;}
+.eff-cap{font-family:var(--body); font-weight:600; font-size:13px; opacity:.88; margin-top:4px; letter-spacing:.5px;}
+.codes{display:flex; gap:30px;}
+.code-stat{display:flex; flex-direction:column; gap:3px;}
+.code-stat .ck{font-family:var(--body); font-weight:500; font-size:12px; color:var(--muted); letter-spacing:.3px;}
+.code-stat .cv{font-family:var(--display); font-weight:700; font-size:32px; color:var(--ink); line-height:1;}
+.code-stat .cu{font-family:var(--body); font-weight:500; font-size:12px; color:var(--muted); margin-left:4px;}
+.sep{width:1px; height:54px; background:var(--rule);}
+.text{font-family:var(--body); font-size:15px; color:var(--ink); line-height:1.6; flex:1;}
 </style>
 </head>
 <body>
 <div class="slide">
-  <header class="header"><h1 class="title">SDD Workflow Summary</h1><div class="meta">{{FEATURE}} · {{DATE}}</div></header>
-  <div class="timeline">
-    <div class="tl-node {{P0_STATE}}"><div class="tl-dot">0</div><div class="tl-skill">{{P0_SKILL}}</div><div class="tl-out">{{P0_OUT}}</div></div>
-    <div class="tl-node {{P1_STATE}}"><div class="tl-dot">1</div><div class="tl-skill">{{P1_SKILL}}</div><div class="tl-out">{{P1_OUT}}</div></div>
-    <div class="tl-node {{P2_STATE}}"><div class="tl-dot">2</div><div class="tl-skill">{{P2_SKILL}}</div><div class="tl-out">{{P2_OUT}}</div></div>
-    <div class="tl-node {{P3_STATE}}"><div class="tl-dot">3</div><div class="tl-skill">{{P3_SKILL}}</div><div class="tl-out">{{P3_OUT}}</div></div>
-    <div class="tl-node {{P4_STATE}}"><div class="tl-dot">4</div><div class="tl-skill">{{P4_SKILL}}</div><div class="tl-out">{{P4_OUT}}</div></div>
-    <div class="tl-node {{P5_STATE}}"><div class="tl-dot">5</div><div class="tl-skill">{{P5_SKILL}}</div><div class="tl-out">{{P5_OUT}}</div></div>
-    <div class="tl-node {{P6_STATE}}"><div class="tl-dot">6</div><div class="tl-skill">{{P6_SKILL}}</div><div class="tl-out">{{P6_OUT}}</div></div>
+  <header class="header">
+    <h1 class="title">SDD Workflow Summary</h1>
+    <div class="meta">{{FEATURE}} · {{DATE}}</div>
+  </header>
+
+  <div class="section-title">
+    <span class="label">需求规格描述:</span><span class="req">{{REQ_SUMMARY}}</span>
   </div>
-  <section class="card block1"><h3><span class="num">1</span>AR / ISSUE 需求</h3><div class="data">{{REQ_LIST}}</div><div class="data" style="margin-top:6px">{{ISSUE_LIST}}</div></section>
-  <section class="hero card bare">
-    <div><div class="big">{{EFFICIENCY}}<span class="pct">%</span></div><div class="hero-label">效率提升 · {{BASELINE_DAYS}} → {{ACTUAL_DAYS}} 人天</div></div>
-    <div class="hero-r"><div class="stat">{{LOC}} <span>行代码</span></div><div class="stat">{{TEST_RESULT}}</div></div>
-  </section>
-  <div class="block23">
-    <section class="card"><h3><span class="num">2</span>开发工作流</h3><div class="sub">{{WORKFLOW}}</div></section>
-    <section class="card"><h3><span class="num">3</span>每流程 skill / 附加 skill / 输出件</h3><div class="data">{{PHASE_TABLE}}</div></section>
+
+  <div class="matrix">
+    <table>
+      <colgroup>
+        <col class="col-label">
+        <col><col><col><col><col><col><col>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="corner">sdd-workflow<span class="sub">工作流 \ 相位</span></th>
+          <th class="phase {{P0_STATE}}">Phase 0<span class="pname">需求澄清</span></th>
+          <th class="phase {{P1_STATE}}">Phase 1<span class="pname">设计</span></th>
+          <th class="phase {{P2_STATE}}">Phase 2<span class="pname">计划</span></th>
+          <th class="phase {{P3_STATE}}">Phase 3<span class="pname">实现</span></th>
+          <th class="phase {{P4_STATE}}">Phase 4<span class="pname">验证</span></th>
+          <th class="phase {{P5_STATE}}">Phase 5<span class="pname">评审</span></th>
+          <th class="phase {{P6_STATE}}">Phase 6<span class="pname">记忆</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="rowlabel">skill<span class="hint">主技能 + 附加技能</span></th>
+          <td class="{{P0_STATE}}"><span class="code">{{P0_SKILL}}</span></td>
+          <td class="{{P1_STATE}}"><span class="code">{{P1_SKILL}}</span></td>
+          <td class="{{P2_STATE}}"><span class="code">{{P2_SKILL}}</span></td>
+          <td class="{{P3_STATE}}"><span class="code">{{P3_SKILL}}</span></td>
+          <td class="{{P4_STATE}}"><span class="code">{{P4_SKILL}}</span></td>
+          <td class="{{P5_STATE}}"><span class="code">{{P5_SKILL}}</span></td>
+          <td class="{{P6_STATE}}"><span class="code">{{P6_SKILL}}</span></td>
+        </tr>
+        <tr>
+          <th class="rowlabel">输出产物<span class="hint">本相位交付件</span></th>
+          <td class="{{P0_STATE}}">{{P0_OUT}}</td>
+          <td class="{{P1_STATE}}">{{P1_OUT}}</td>
+          <td class="{{P2_STATE}}">{{P2_OUT}}</td>
+          <td class="{{P3_STATE}}">{{P3_OUT}}</td>
+          <td class="{{P4_STATE}}">{{P4_OUT}}</td>
+          <td class="{{P5_STATE}}">{{P5_OUT}}</td>
+          <td class="{{P6_STATE}}">{{P6_OUT}}</td>
+        </tr>
+        <tr>
+          <th class="rowlabel">人工<span class="hint">该相位人工介入</span></th>
+          <td class="{{P0_STATE}}">{{P0_HUMAN}}</td>
+          <td class="{{P1_STATE}}">{{P1_HUMAN}}</td>
+          <td class="{{P2_STATE}}">{{P2_HUMAN}}</td>
+          <td class="{{P3_STATE}}">{{P3_HUMAN}}</td>
+          <td class="{{P4_STATE}}">{{P4_HUMAN}}</td>
+          <td class="{{P5_STATE}}">{{P5_HUMAN}}</td>
+          <td class="{{P6_STATE}}">{{P6_HUMAN}}</td>
+        </tr>
+        <tr>
+          <th class="rowlabel">问题<span class="hint">遇到的问题/绕行</span></th>
+          <td class="{{P0_STATE}}">{{P0_ISSUE}}</td>
+          <td class="{{P1_STATE}}">{{P1_ISSUE}}</td>
+          <td class="{{P2_STATE}}">{{P2_ISSUE}}</td>
+          <td class="{{P3_STATE}}">{{P3_ISSUE}}</td>
+          <td class="{{P4_STATE}}">{{P4_ISSUE}}</td>
+          <td class="{{P5_STATE}}">{{P5_ISSUE}}</td>
+          <td class="{{P6_STATE}}">{{P6_ISSUE}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <section class="card block4"><h3><span class="num">4</span>人工参与 + 耗时</h3><div class="sub">{{HUMAN_PHASES}}</div><div class="data" style="margin-top:6px">{{HUMAN_COST}}</div></section>
-  <section class="card block5"><h3><span class="num">5</span>AI 辅助效果评估</h3><div class="sub">{{AI_EVAL}}</div></section>
-  <section class="card block6"><h3><span class="num">6</span>代码量 / 测试 / 效率</h3><div class="sub">{{OUTCOME_DETAIL}}</div></section>
+
+  <div class="summary">
+    <span class="s-label">总结</span>
+    <div class="eff-chip">
+      <span class="eff-num">{{EFFICIENCY}}<span class="eff-pct">%</span></span>
+      <span class="eff-cap">AI 代码占比</span>
+    </div>
+    <div class="codes">
+      <div class="code-stat"><span class="ck">AI 代码</span><span><span class="cv">{{AI_LOC}}</span><span class="cu">行</span></span></div>
+      <div class="code-stat"><span class="ck">人工代码</span><span><span class="cv">{{HUMAN_LOC}}</span><span class="cu">行</span></span></div>
+    </div>
+    <span class="sep"></span>
+    <span class="text">{{OUTCOME_DETAIL}}</span>
+  </div>
 </div>
 </body>
 </html>
