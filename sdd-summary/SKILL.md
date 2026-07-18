@@ -80,6 +80,16 @@ Use this for a bulk refresh / re-selection of the catalog (the per-summary run a
 - Single-page output is fully self-contained: inline CSS + Google Fonts `@import`, no local assets, no JS.
 - **UTF-8 / encoding (Windows critical):** on a GBK (936) codepage, plain `Get-Content -Raw` and command-line non-ASCII literals corrupt CJK and symbols (`·`, `→`, `—`) into mojibake. Always generate via a UTF-8-safe path — prefer a Node script (`fs.readFileSync(p,'utf8')` / `fs.writeFileSync(p, out,'utf8')`, values as UTF-8 JS literals); in PowerShell use `-Encoding UTF8` for read+write and keep non-ASCII values out of the command line. The output file itself must be UTF-8; the browser reads it via `<meta charset="utf-8">`.
 
+## Cell content guidelines (how the model lays out a cell)
+The matrix is a 1920×1080 fixed slide; rows grow to fit content but the matrix area clips overflow. So the model **keeps each cell value short** so the layout never breaks:
+
+- Aim for **≤ 2 lines per cell**. A short phrase beats a sentence; the slide is a summary, not full prose.
+- **Multiple skills** go one per line (`{{Pn_SKILL}}` / `{{Pn_ADD}}` joined with newlines; the template's `white-space:pre-line` renders each on its own line).
+- **Multiple output files** (`{{Pn_OUT}}`): list the top 3, then ` 等 N 文件` if more. Never paste a full file list or absolute paths — basenames only.
+- **Issues** (`{{Pn_ISSUE}}`): compress to a phrase + the resolution, e.g. `借用检查报错 3 次,改用枚举+match`. Long root-cause prose belongs in `findings.md`/memory, not the cell. **If a phase has multiple issues, list them one per line, numbered** `1. ...` `2. ...` — the cell renders newlines as line breaks (`white-space:pre-line`).
+- **Human** (`{{Pn_HUMAN}}`): one short label per phase (`需求澄清`/`设计评审`/`代码走查`), or `—`. **If a phase has multiple human-involvement items, list them one per line, numbered** `1. ...` `2. ...` (same format as issues).
+- If a value would still overflow, **summarize harder** rather than let it wrap past ~4 lines — the model is responsible for the cell fitting.
+
 ## Notes
 - The aesthetic (Quiet ledger) and the matrix layout are baked into the template — do not restyle per run.
 - `{{Pn_STATE}}` implements the "completed phases filled teal; current outlined; future hollow" rule via pure string replacement, reused across each phase column's header + 4 cells.
